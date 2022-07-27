@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input type="text" @keyup.delete="demo"> -->
+        <!-- <input type="text" @keyup="getQ"> -->
+        <!-- <input type="text" @keyup.q="qClick"> -->
+        <!-- <input type="text" @keydown.13="demo"> -->
+        <input type="text" @keyup.huiche="demo">
+    </div>
+    <script>
+        Vue.config.keyCodes.huiche = 13;
+        var vm = new Vue({
+            el: "#app",
+            methods: {
+                demo(e) {
+                    console.log(e.target.value);
+                },
+                getQ(e) {
+                    console.log(e.key); // 输出key值
+                    console.log(e.keyCode); // 输出keyCode
+                },
+                qClick() {
+                    console.log("按下了q键");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
