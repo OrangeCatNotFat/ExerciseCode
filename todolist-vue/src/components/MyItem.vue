@@ -2,10 +2,10 @@
     <div>
         <li>
             <label>
-                <input type="checkbox" :checked="todo.done">
+                <input type="checkbox" :checked="todo.done" @change="handleClick(todo.id)">
                 <span>{{ todo.title }}</span>
             </label>
-            <button class="btn btn-danger" style="display:none">删除</button>
+            <button class="btn btn-danger" @click="deleteT(todo.id)">删除</button>
         </li>
     </div>
 </template>
@@ -13,7 +13,19 @@
 <script>
 export default {
     name: "MyItem",
-    props: ["todo"], // 声明接收对象
+    props: ["todo", "checkTodo", "deleteTodo"], // 声明接收对象
+    methods: {
+        handleClick(id) {
+            // 通知app将对应的todo对象done取反
+            this.checkTodo(id);
+        },
+        deleteT(id) { // 删除
+            if (confirm("确定删除吗？")) {
+                // 通知app删除
+                this.deleteTodo(id);
+            }
+        }
+    }
 }
 </script>
 
@@ -50,5 +62,13 @@ li::before {
 
 li:last-child {
     border-bottom: none;
+}
+
+li:hover {
+    background-color: #ddd;
+}
+
+li:hover button {
+    display: block;
 }
 </style>

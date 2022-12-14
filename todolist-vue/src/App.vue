@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <MyHeader></MyHeader>
-    <MyList></MyList>
-    <MyFooter></MyFooter>
+    <MyHeader :receive="receive"></MyHeader>
+    <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo"></MyList>
+    <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAll="clearAll"></MyFooter>
   </div>
 </template>
 
@@ -13,10 +13,44 @@ import MyFooter from './components/MyFooter.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      todos: [
+        { id: "001", title: "吃饭", done: true },
+        { id: "002", title: "睡觉", done: false },
+        { id: "003", title: "喝水", done: true },
+      ]
+    }
+  },
   components: {
     MyHeader,
     MyList,
     MyFooter
+  },
+  methods: {
+    receive(todoObj) {
+      this.todos.unshift(todoObj);
+    },
+    checkTodo(id) {
+      this.todos.forEach(todo => {
+        if (todo.id === id) todo.done = !todo.done;
+      })
+    },
+    deleteTodo(id) {
+      this.todos = this.todos.filter(todo => {
+        return todo.id !== id;
+      })
+    },
+    checkAllTodo(done) {
+      this.todos.forEach(todo => {
+        todo.done = done;
+      })
+    },
+    clearAll() {
+      this.todos = this.todos.filter(todo => {
+        return !todo.done;
+      })
+    }
   }
 }
 </script>
